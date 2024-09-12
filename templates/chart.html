@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Synthetic Vaccine Data Chart</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body {
+            background: linear-gradient(135deg, #66bb6a, #81c784); 
+            font-family: 'Roboto', sans-serif;
+            color: #fff;
+        }
+        .container {
+            margin-top: 20px;
+            max-width: 80%;
+            background-color: rgba(255, 255, 255, 0.9); 
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            font-size: 1.8rem;
+            font-weight: bold;
+            text-align: center;
+            color: #2e7d32;
+        }
+        .chart-container {
+            width: 100%;
+            overflow-x: auto;
+        }
+        canvas {
+            width: 1500px; 
+            height: 200px; 
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Synthetic Vaccine Data Chart</h2>
+        <div class="row">
+            <div class="col-md-12 chart-container">
+                <canvas id="dataChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            $.ajax({
+                url: 'http://127.0.0.1:8000/synthetic_vaccine_data',
+                method: 'GET',
+                success: function(data) {
+                    console.log(data);
+
+                    // Limit data to 100 points
+                    const limitedData = data.slice(0, 100);
+
+                    // Extract labels and values from the limited data
+                    const labels = limitedData.map(item => item.label);
+                    const values = limitedData.map(item => item.value);
+
+                    const ctx = document.getElementById('dataChart').getContext('2d');
+                    new Chart(ctx, {
+                        type: 'line',
+                        data: {
+                            labels: labels,
+                            datasets: [
+                                {
+                                    label: 'Demand',
+                                    data: values,
+                                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                                    borderColor: '#2e7d32',
+                                    borderWidth: 1
+                                }
+                            ]
+                        },
+                        options: {
+                            responsive: false, 
+                            scales: {
+                                x: {
+                                    beginAtZero: true,
+                                    title: {
+                                        display: true,
+                                        text: 'Month and Region',
+                                        color: '#2e7d32' 
+                                    },
+                                    ticks: {
+                                        autoSkip: false, 
+                                        color: '#333'
+                                    }
+                                },
+                                y: {
+                                    beginAtZero: true,
+                                    title: {
+                                        display: true,
+                                        text: 'Demand',
+                                        color: '#2e7d32' 
+                                    },
+                                    ticks: {
+                                        color: '#333'
+                                    }
+                                }
+                            }
+                        }
+                    });
+                },
+                error: function(err) {
+                    console.error('Error fetching data:', err);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
