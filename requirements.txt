@@ -1,0 +1,6 @@
+fastapi==0.95.0          # FastAPI core library
+uvicorn==0.22.0          # ASGI server to run FastAPI
+requests==2.31.0         # For handling HTTP requests in your frontend logic
+python-dotenv==1.0.0     # If you use environment variables for configuration
+pandas==2.1.0            # For data manipulation, if needed for vaccine data
+numpy==1.25.0   
