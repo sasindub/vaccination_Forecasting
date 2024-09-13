@@ -38,10 +38,28 @@
             width: 1500px; 
             height: 200px; 
         }
+        .back-button {
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: center;
+          
+        }
+        .backBtn {
+            background-color: #2e7d32;
+            border: none;
+        }
+        .backBtn:hover {
+            background-color: #38973d;
+            color: white;
+        }
     </style>
 </head>
 <body>
     <div class="container">
+   
+        <div class="back-button">
+            <a href="/" class="btn btn-primary backBtn">PREDICT</a>
+        </div>
         <h2>Synthetic Vaccine Data Chart</h2>
         <div class="row">
             <div class="col-md-12 chart-container">
@@ -58,8 +76,8 @@
                 success: function(data) {
                     console.log(data);
 
-                    // Limit data to 100 points
-                    const limitedData = data.slice(0, 100);
+              
+                    const limitedData = data.slice(0, 40);
 
                     // Extract labels and values from the limited data
                     const labels = limitedData.map(item => item.label);
