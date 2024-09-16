@@ -1,8 +1,0 @@
-fastapi==0.95.0
-uvicorn==0.22.0
-requests==2.31.0
-python-dotenv==1.0.0
-pandas==1.5.3        # Use a pre-built version that works with Vercel
-numpy==1.25.0
-setuptools>=65.5.0   # Keep setuptools and wheel for safety
-wheel
